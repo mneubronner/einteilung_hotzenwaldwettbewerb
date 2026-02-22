@@ -30,18 +30,17 @@
 <p id="status"></p>
 
 <script>
-// Werte aus URL übernehmen und anzeigen
 const params = new URLSearchParams(window.location.search);
 const tag = params.get("tag");
 const rolle = params.get("rolle");
 
+// Felder füllen
 document.getElementById("tag").value = tag;
 document.getElementById("rolle").value = rolle;
 
 document.getElementById("info").innerText =
   `Du trägst dich ein für: ${rolle} am ${tag}`;
 
-// Formularabsenden verarbeiten
 document.getElementById("dienstForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -50,12 +49,29 @@ document.getElementById("dienstForm").addEventListener("submit", async (e) => {
 
   status.innerText = "Eintrag wird gespeichert…";
 
-  // --- NOCH OHNE API CALL ---
-  // Wir testen erst den Frontend-Teil
+  try {
+    const response = await fetch(
+      "https://autumn-union-2167.marcus-neubronner.workers.dev/",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tag, rolle, name })
+      }
+    );
 
-  status.innerText = "Formular OK. Backend kommt im nächsten Schritt.";
-
-  // Später: window.location.href = "index.html";
+    if (response.ok) {
+      status.innerText = "Eintrag erfolgreich! Die Dienste werden aktualisiert…";
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 2000);
+    } else {
+      const text = await response.text();
+      status.innerText =
+        "Fehler beim Speichern:\n" + text;
+    }
+  } catch (error) {
+    status.innerText = "Netzwerkfehler: " + error;
+  }
 });
 </script>
 
