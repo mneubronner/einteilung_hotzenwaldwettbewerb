@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Eintragen</title>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: auto; }
+    label { display: block; margin-top: 12px; }
+    input, button { padding: 8px; width: 100%; }
+  </style>
+</head>
+<body>
+
+<h1>In Dienst eintragen</h1>
+
+<p id="info"></p>
+
+<form id="slotForm" method="POST" action="https://api.github.com/repos/mneubronner/dienstplan/dispatches">
+  <input type="hidden" id="tag" name="tag">
+  <input type="hidden" id="rolle" name="rolle">
+
+  <label>Dein Name:</label>
+  <input type="text" name="name" required>
+
+  <button type="submit">Eintragen</button>
+</form>
+
+<script>
+// Werte aus URL laden
+const params = new URLSearchParams(window.location.search);
+document.getElementById('tag').value = params.get('tag');
+document.getElementById('rolle').value = params.get('rolle');
+document.getElementById('info').innerText =
+  `Du trägst dich ein für: ${params.get('rolle')} am ${params.get('tag')}`;
+</script>
+
+</body>
+</html>
