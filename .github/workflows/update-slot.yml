@@ -39,5 +39,5 @@ jobs:
           git add woche.json
           git commit -m "Update: ${{ github.event.client_payload.tag }} / ${{ github.event.client_payload.rolle }} → ${{ github.event.client_payload.name }}" || echo "No changes to commit"
 
-          git remote set-url origin https://mneubronner:${PUSH_TOKEN}@github.com/mneubronner/einteilung_hotzenwaldwettbewerb.git
+          git remote set-url origin https://mneubronner:${PUSH_TOKEN}@github.com/mneubronner/dienstplan.git
           git push origin HEAD:main
