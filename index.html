@@ -55,9 +55,19 @@ async function main() {
 }
 
 function eintragen(tag, rolle) {
-  // Formspree-ID später einfügen
-  const url = `https://formspree.io/f/DEINE_ID?tag=${encodeURIComponent(tag)}&rolle=${encodeURIComponent(rolle)}`;
-  window.location.href = url;
+  const name = prompt("Bitte gib deinen Namen ein:");
+
+  if (!name || name.trim() === "") {
+    alert("Eintrag abgebrochen, kein Name angegeben.");
+    return;
+  }
+
+  const subject = encodeURIComponent(`Anmeldung für ${rolle} am ${tag}`);
+  const body = encodeURIComponent(
+    `Name: ${name}\nTag: ${tag}\nRolle: ${rolle}\n\nGesendet über den Dienstplan der Webseite.`
+  );
+
+  window.location.href = `mailto:marcus.neubronner@gmail.com?subject=${subject}&body=${body}`;
 }
 
 main();
