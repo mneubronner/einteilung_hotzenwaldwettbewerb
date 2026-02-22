@@ -29,11 +29,15 @@ jobs:
 
           mv woche.tmp woche.json
 
-      - name: Commit changes
-        run: |
-          git config user.email "action@github.com"
-          git config user.name "GitHub Action"
+     - name: Commit changes
+  env:
+    PUSH_TOKEN: ${{ secrets.PAT }}
+  run: |
+    git config --global user.name "dienstplan-bot"
+    git config --global user.email "bot@users.noreply.github.com"
 
-          git add woche.json
-          git commit -m "Update: ${{ github.event.client_payload.tag }} / ${{ github.event.client_payload.rolle }} → ${{ github.event.client_payload.name }}"
-          git push https://mneubronner:${{ secrets.PAT }}@github.com/mneubronner/einteilung_hotzenwaldwettbewerb.git
+    git add woche.json
+    git commit -m "Update: ${{ github.event.client_payload.tag }} / ${{ github.event.client_payload.rolle }} → ${{ github.event.client_payload.name }}" || echo "No changes to commit"
+
+    git remote set-url origin https://mneubronner:${PUSH_TOKEN}@github.com/mneubronner/einteilung_hotzenwaldwettbewerb.git
+    git push origin HEAD:main
