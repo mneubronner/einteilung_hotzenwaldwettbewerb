@@ -36,4 +36,4 @@ jobs:
 
           git add woche.json
           git commit -m "Update: ${{ github.event.client_payload.tag }} / ${{ github.event.client_payload.rolle }} → ${{ github.event.client_payload.name }}"
-          git push https://mneubronner:${{ secrets.PAT }}@github.com/mneubronner/dienstplan.git
+          git push https://mneubronner:${{ secrets.PAT }}@github.com/mneubronner/einteilung_hotzenwaldwettbewerb.git
