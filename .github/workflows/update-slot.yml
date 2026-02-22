@@ -31,7 +31,7 @@ jobs:
 
       - name: Commit changes
         env:
-          PUSH_TOKEN: ${{ secrets.PAT }}
+          PUSH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.name "dienstplan-bot"
           git config --global user.email "bot@users.noreply.github.com"
